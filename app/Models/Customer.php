@@ -15,7 +15,7 @@ class Customer extends Model
         'email',
         'phone',
         'address',
-        'status'
+        'status',
     ];
 
     protected function casts(): array
@@ -25,9 +25,6 @@ class Customer extends Model
         ];
     }
 
-    /**
-     * Relationship to subscriptions
-     */
     public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class);

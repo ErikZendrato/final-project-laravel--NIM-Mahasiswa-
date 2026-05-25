@@ -12,20 +12,11 @@ return new class extends Migration {
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('customer_id')
-                ->constrained('customers')
-                ->cascadeOnDelete();
-
-            $table->foreignId('service_id')
-                ->constrained('services')
-                ->cascadeOnDelete();
-
+            $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete();
+            $table->foreignId('service_id')->constrained('services')->cascadeOnDelete();
             $table->date('start_date');
             $table->date('end_date');
-
             $table->string('status');
-
             $table->timestamps();
         });
     }

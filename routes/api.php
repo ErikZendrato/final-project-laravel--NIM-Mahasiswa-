@@ -1,68 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\SubscriptionController;
 
-/*
-|--------------------------------------------------------------------------
-| Service Routes
-|--------------------------------------------------------------------------
-*/
 
-Route::apiResource(
-    "services",
-    ServiceController::class
-);
+Route::get('services/status/{status}', [ServiceController::class, 'getByStatus']);
+Route::patch('services/{id}/change-status', [ServiceController::class, 'changeStatus']);
 
-Route::patch(
-    "services/{service}/activate",
-    [ServiceController::class, "activate"]
-);
+Route::get('customers/status/{status}', [CustomerController::class, 'getByStatus']);
+Route::patch('customers/{id}/change-status', [CustomerController::class, 'changeStatus']);
 
-Route::patch(
-    "services/{service}/deactivate",
-    [ServiceController::class, "deactivate"]
-);
+Route::get('subscriptions/status/{status}', [SubscriptionController::class, 'getByStatus']);
+Route::patch('subscriptions/{id}/change-status', [SubscriptionController::class, 'changeStatus']);
 
-/*
-|--------------------------------------------------------------------------
-| Customer Routes
-|--------------------------------------------------------------------------
-*/
+Route::get('/customers-next-id', [CustomerController::class, 'getNextCustomerId']);
 
-Route::apiResource(
-    "customers",
-    CustomerController::class
-);
+Route::apiResource('services', ServiceController::class);
+Route::apiResource('customers', CustomerController::class);
 
-Route::patch(
-    "customers/{customer}/activate",
-    [CustomerController::class, "activate"]
-);
-
-Route::patch(
-    "customers/{customer}/deactivate",
-    [CustomerController::class, "deactivate"]
-);
-
-/*
-|--------------------------------------------------------------------------
-| Subscription Routes
-|--------------------------------------------------------------------------
-*/
-
-Route::apiResource(
-    "subscriptions",
-    SubscriptionController::class
-)->except([
-            "update",
-            "destroy",
-        ]);
-
-Route::patch(
-    "subscriptions/{subscription}/change-status",
-    [SubscriptionController::class, "changeStatus"]
-);
+Route::apiResource('subscriptions', SubscriptionController::class)->except(['update', 'destroy']);

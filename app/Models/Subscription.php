@@ -17,17 +17,11 @@ class Subscription extends Model
         'status',
     ];
 
-    /**
-     * Customer relationship
-     */
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
     }
 
-    /**
-     * Service relationship
-     */
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
